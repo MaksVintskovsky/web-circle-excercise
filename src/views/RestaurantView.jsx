@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { useDebouncedCallback } from 'use-debounce';
 import MenuItem from "../components/MenuItem/MenuItem.jsx";
 
@@ -8,6 +8,7 @@ import SearchField from "../components/SearchField/SearchField.jsx";
 
 const RestaurantView = () => {
   const [dishes, setDishes] = useState([]);
+  const [query, setQuery] = useState("");
 
   // useDebouncedCallback takes a function as a parameter and as the second parameter
   // the number of milliseconds it should wait until it is actually called so a user
@@ -35,6 +36,8 @@ const RestaurantView = () => {
       }
       setDishes([]);
     })
+    
+
 
     // This cleanup function is to prevent multiple API calls coming back out of sequence and setting the value of our dishes list.
     // Example:
@@ -47,6 +50,17 @@ const RestaurantView = () => {
     }
   }, 500);
 
+  const filteredDishes = useMemo(() => {
+    const q = query.toLowerCase();
+    if (q.trim() === "") {
+      return dishes;
+    }
+
+    return dishes.filter((dish) =>
+      dish.strMeal.toLowerCase().includes(q)
+    );
+  }, [dishes, query]);
+
   // useEffect can take a variable that is a function and does not need to be defined as an anonymous () => {} arrow function
   // This is especially important when using more controlled techniques like debouncing
   useEffect(debouncedEffectHook, [debouncedEffectHook]);
@@ -56,20 +70,24 @@ const RestaurantView = () => {
       <NavBar>
         <h1>ReDI React Restaurant</h1>
 
-        <SearchField />
+        <SearchField 
+          value={query}
+          onChange={setQuery}
+          placeholder="Search for your favorite dish..."
+        />
       </NavBar>
 
       <div className={styles.restaurantWrapper}>
         <div className={styles.menu}>
-          {dishes.length > 0 ? (
-            dishes.map((dish) => (
+          {filteredDishes.length > 0 ? (
+            filteredDishes.map((dish) => (
               <MenuItem
                 dish={dish}
                 key={dish.idMeal}
               />
             ))
           ) : (
-            <p>No dishes found :(</p>
+            <p>No dishes found :</p>
           )}
         </div>
       </div>
