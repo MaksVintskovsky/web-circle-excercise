@@ -16,7 +16,7 @@ As a bonus, we'd really like to have a wishlist feature, where users can add (an
 ## Cloning the Repository
 
 ```
-git clone https://github.com/ReDI-School/web-circle-excercise.git
+git clone https://github.com/MaksVintskovsky/web-circle-excercise.git
 ```
 
 ## Running the project
