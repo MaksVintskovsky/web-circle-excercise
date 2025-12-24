@@ -3,6 +3,7 @@
   max-width: 1080px;
   margin: var(--nav-height) auto 0 auto;
   padding: 40px;
+  z-index: -1;
 }
 
 .menu {

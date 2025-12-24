@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 import styles from "./MenuItem.module.css";
 
-const MenuItem = ({ dish }) => {
+const MenuItem = ({ dish, isInWishlist, onToggleWishlist}) => {
   const { strMeal: name, strMealThumb: image } = dish;
   const navigate = useNavigate();
   return (
@@ -14,6 +14,9 @@ const MenuItem = ({ dish }) => {
           Details
         </Button>
       </div>
+      <button className={styles.add} onClick ={() => onToggleWishlist(dish)} >
+        {isInWishlist ? "Remove" : "Add"}
+        </button>
     </div>
   );
 };

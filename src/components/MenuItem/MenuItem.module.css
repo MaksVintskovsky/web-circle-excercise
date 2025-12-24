@@ -10,12 +10,23 @@
   flex-direction: column; /* Arrange children in a column */
   justify-content: space-between; /* Space between content and button */
   height: 100%; /* Full height to encapsulate content and button */
+  position: relative;
 }
 
 .menuItem h3 {
   background-color: #f2f2f2; /* Light grey background for the title */
   margin: 0; /* Remove default margin */
   padding: 15px; /* Padding for the title */
+}
+
+.menuItem .add {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #2e93ff;
+  border: none;
 }
 
 .menuItem img {
